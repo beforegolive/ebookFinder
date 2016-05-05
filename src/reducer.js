@@ -1,12 +1,12 @@
 var mockBooks=[
-  { title:'深入浅出Node.js', author:'朴灵', publishedDate:'2013-12-1'},
-  { title:'Getting Started with React Native', author:'Ethan Holmes, Tom Bray ', publishedDate:'2014-11-1'},
-  { title:'代码的未来', author:'松本行弘', publishedDate:'2011-7-1'},
-  { title:'图解HTTP', author:'上野', publishedDate:'2010-2-1'},
-  { title:'深入浅出Node.js', author:'朴灵', publishedDate:'2013-12-1'},
-  { title:'Getting Started with React Native', author:'Ethan Holmes, Tom Bray ', publishedDate:'2014-11-1'},
-  { title:'代码的未来', author:'松本行弘', publishedDate:'2011-7-1'},
-  { title:'图解HTTP', author:'上野', publishedDate:'2010-2-1'}
+  { id:1, title:'深入浅出Node.js', author:'朴灵', publishedDate:'2013-12-1'},
+  { id:2, title:'Getting Started with React Native', author:'Ethan Holmes, Tom Bray ', publishedDate:'2014-11-1'},
+  { id:3, title:'代码的未来', author:'松本行弘', publishedDate:'2011-7-1'},
+  { id:4, title:'图解HTTP', author:'上野', publishedDate:'2010-2-1'},
+  { id:5, title:'深入浅出Node.js', author:'朴灵', publishedDate:'2013-12-1'},
+  { id:6, title:'Getting Started with React Native 132 333 sssssss 11', author:'Ethan Holmes, Tom Bray ', publishedDate:'2014-11-1'},
+  { id:7, title:'代码的未来', author:'松本行弘', publishedDate:'2011-7-1'},
+  { id:8, title:'图解HTTP', author:'上野', publishedDate:'2010-2-1'}
 ]
 
 export function searchBook(state={keyword:'',bookList:[]}, action){
@@ -26,12 +26,14 @@ export function searchBook(state={keyword:'',bookList:[]}, action){
   }
 }
 
-export function storeNavigator(state = {}, action){
+export function ebookDetail(state={ bookDetail:null }, action){
   switch (action.type) {
-    case 'STORENAVIGATOR':
-      return {
-        navigator: action.navigator
-      }
+    case 'GETEBOOKDETAIL':
+    var book=mockBooks.filter((e)=>e.id===action.id)[0]
+    var newState={
+      ...book
+    };
+      return newState;
     default:
       return state;
   }

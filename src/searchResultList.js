@@ -5,15 +5,17 @@ import React, {
   TouchableHighlight,
   Image
 } from 'react-native'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import * as Actions from './actionCreator'
 
-var SearchResult= ({keyword, bookList, goBack})=>{
+var SearchResult= ({keyword, bookList, goToDetail})=>{
   return(
     <View style={styles.container}>
       <View style={styles.bookContainer}>
       {
         bookList.map((item,i)=>{
-         return <TouchableHighlight key={i} onPress={()=>alert(item.title)}>
+         return <TouchableHighlight key={i} onPress={()=>goToDetail(item.id)}>
          <View style={styles.bookDetail} >
             <View style={styles.bookItem}>
               <Text style={styles.bookTitle}>{item.title}</Text>
@@ -120,9 +122,11 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch, ownProps){
+  var boundActionCreators = bindActionCreators(Actions, dispatch)
   return {
-    goBack: ()=>{
-      ownProps.navigator.pop()
+    goToDetail: (bookId)=>{
+      boundActionCreators.geteBookDetail(bookId);
+      ownProps.navigator.push({id:3});
     }
   }
 }

@@ -17,54 +17,14 @@ import React, {
 
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
-import { searchBook } from './src/reducer.js'
+import { searchBook, ebookDetail } from './src/reducer.js'
 import SearchResultList2 from './src/searchResultList'
 import SearchBox from './src/searchBox'
+import BookDetail from './src/bookDetail'
 
-var reducers = combineReducers({searchBook})
+var reducers = combineReducers({searchBook, ebookDetail})
 var store = createStore(reducers)
 
-var IndexComponent= React.createClass({
-  render(){
-    return(
-    <View style={styles.container}>
-      <Text style={styles.welcome}>
-        Welcome to ebookFinder!
-      </Text>
-      <View style={styles.centerContainer}>
-        <TextInput style={styles.textInput} defaultValue='123' />
-          <TouchableHighlight style={styles.button} onPress={this._clickButton}>
-            <Text style={styles.buttonText}>Press Me</Text>
-          </TouchableHighlight>
-      </View>
-    </View>
-    )
-  },
-  _clickButton(){
-    this.props.navigator.push({id:2});
-  },
-  componentDidMount(){
-
-  }
-})
-
-var SearchResultList= React.createClass({
-  render(){
-    return(
-    <View style={styles.container}>
-      <Text>This Is SearchResultList</Text>
-      <TouchableHighlight style={styles.button} onPress={this._handleClick}>
-        <Text style={styles.buttonText}>Go Back</Text>
-      </TouchableHighlight>
-    </View>
-  )
-  },
-  _handleClick(){
-    this.props.navigator.pop();
-  }
-})
-
-Navigator.contextTypes = { store: React.PropTypes.object };
 class ebookFinder extends Component {
   _renderScene(r,n){
     switch (r.id) {
@@ -72,8 +32,10 @@ class ebookFinder extends Component {
         return <SearchBox navigator={n}/>
       case 2:
         return <SearchResultList2 navigator={n}/>
+      case 3:
+        return <BookDetail navigator={n} />
       default:
-        return <IndexComponent navigator={n}/>
+        return <SearchBox navigator={n}/>
     }
   }
 
